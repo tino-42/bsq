@@ -29,11 +29,12 @@ matrix	*read_matrix(int fd)
 	row_count = ft_atoi(header);
 	st = malloc(sizeof(matrix));
 	st->m = malloc(sizeof(char *) * (row_count + 1));
-    st->space = header[1];
-    st->obstacle = header[2];
-    st->fill = header[3]; // TODO: fix me pls, i dont work and will break with >1 digit row_count 
-    free(header);
-    if (!st->m)
+	st->space = header[1];
+	st->obstacle = header[2];
+	st->fill = header[3]; /* TODO: fix me pls,
+		i dont work and will break with >1 digit row_count */
+	free(header);
+	if (!st->m)
 		return (NULL);
 	i = 0;
 	while (i < row_count)
@@ -48,10 +49,11 @@ matrix	*read_matrix(int fd)
 
 int	**parse_matrix(matrix *m)
 {
-    int i;
+	int	i;
 
-    i = 0;
-	printf("Rows: %d | Obstacle: %c | Fill with: %c\n", m->rows, m->obstacle, m->fill);
+	i = 0;
+	printf("Rows: %d | Obstacle: %c | Fill with: %c\n", m->rows, m->obstacle,
+		m->fill);
 	for (int i = 0; i < m->rows; i++)
 	{
 		printf("%s\n", m->m[i]);

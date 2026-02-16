@@ -1,20 +1,23 @@
 #ifndef LIB_H
 # define LIB_H
-# include <stdlib.h>
-# include <unistd.h>
 # include <fcntl.h>
 # include <stdio.h> // TODO: delete me
+# include <stdlib.h>
+# include <unistd.h>
 typedef struct matrix_t
 {
 	char	**m;
-	int rows;
-	char obstacle;
-	char space;
-	char fill;
-} matrix;
+	int		rows;
+	int		col;
+	char	obstacle;
+	char	space;
+	char	fill;
+}			matrix;
 
-int	ft_atoi(char *str);
-char	*read_line(int fd);
-matrix	*read_matrix(int fd);
-int		**parse_matrix(matrix *m);   
+char		*read_line(int fd);
+matrix		*read_matrix(int fd);
+int			**parse_matrix(matrix *m);
+// helpers
+int			ft_strlen(const char *s);
+int			ft_atoi(char *str);
 #endif

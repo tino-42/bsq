@@ -26,8 +26,8 @@ int	ft_isspace(char s)
 
 int	ft_atoi(char *str)
 {
-	int sign;
-	int result;
+	int	sign;
+	int	result;
 
 	sign = 1;
 	result = 0;
@@ -45,4 +45,14 @@ int	ft_atoi(char *str)
 		str++;
 	}
 	return (result * sign);
+}
+
+int	ft_strlen(const char *str)
+{
+	int	i;
+
+	i = 0;
+	while (str[i])
+		i++;
+	return (i);
 }
