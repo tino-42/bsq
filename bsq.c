@@ -109,7 +109,7 @@ void	free_arr(int **arr, int rows)
 	}
 	free(arr);
 }
-
+/*main in different file
 int	main(int argc, char **argv)
 {
 	int			fd;
@@ -152,4 +152,4 @@ int	main(int argc, char **argv)
 		i++;
 	}
 	return (0);
-}
+}*/

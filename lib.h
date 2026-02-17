@@ -20,7 +20,7 @@ typedef struct s_square
 	int		y;
 	int		x;
 }			t_square;
-
+t_square	find_bsq(int **m, int rows, int cols);
 char		*read_line(int fd);
 matrix		*read_matrix(int fd);
 int			**parse_matrix(matrix *m);
@@ -28,5 +28,5 @@ int			**parse_matrix(matrix *m);
 int			ft_strlen(const char *s);
 int			ft_atoi(char *str);
 int			validate_matrix(matrix *m);
-int	parse_header(const char *hdr, matrix *out);
+int			parse_header(const char *hdr, matrix *out);
 #endif
