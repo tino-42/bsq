@@ -23,7 +23,7 @@ typedef struct matrix_t
 	char	obstacle;
 	char	space;
 	char	fill;
-}			matrix;
+}			t_matrix;
 
 typedef struct s_square
 {
@@ -34,20 +34,20 @@ typedef struct s_square
 
 // Core Logic
 t_square	find_bsq(int **m, int rows, int cols);
-matrix		*read_matrix(int fd);
-int			**parse_matrix(matrix *m);
-void		fill_matrix(matrix *m_def, t_square res);
-void		print_matrix(matrix *m);
+t_matrix	*read_matrix(int fd);
+int			**parse_matrix(t_matrix *m);
+void		fill_matrix(t_matrix *m_def, t_square res);
+void		print_matrix(t_matrix *m);
 
 // Memory Management
-void		free_matrix(matrix *out);
+void		free_matrix(t_matrix *out);
 void		free_arr(int **arr, int rows);
 
-// Helpers & Validation
+// Helpers
 char		*read_line(int fd);
 int			ft_strlen(const char *s);
 int			ft_atoi(char *str);
-int			validate_matrix(matrix *m);
-int			parse_header(const char *hdr, matrix *out);
+int			validate_matrix(t_matrix *m);
+int			parse_header(const char *hdr, t_matrix *out);
 
 #endif

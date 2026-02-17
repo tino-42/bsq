@@ -34,7 +34,7 @@ t_square	find_bsq(int **m, int rows, int cols)
 					min = m[i - 1][j - 1];
 				m[i][j] = min + 1;
 			}
-			if (m[i][j] > max.size)
+			if (m[i][j] > max.size) // update largest square
 			{
 				max.size = m[i][j];
 				max.y = i;
@@ -47,25 +47,25 @@ t_square	find_bsq(int **m, int rows, int cols)
 	return (max);
 }
 
-void	fill_matrix(matrix *m_def, t_square res)
+void	fill_matrix(t_matrix *m_def, t_square res)
 {
 	int	i;
 	int	j;
 
-	i = res.y;
-	while (i > res.y - res.size)
+	i = 0;
+	while (i < res.size)
 	{
-		j = res.x;
-		while (j > res.x - res.size)
+		j = 0;
+		while (j < res.size)
 		{
-			m_def->m[i][j] = m_def->fill;
-			j--;
+			m_def->m[res.y - i][res.x - j] = m_def->fill; // fill from the bottom right corner (backwards)
+			j++;
 		}
-		i--;
+		i++;
 	}
 }
 
-void	print_matrix(matrix *m_def)
+void	print_matrix(t_matrix *m_def)
 {
 	int	i;
 
@@ -78,7 +78,7 @@ void	print_matrix(matrix *m_def)
 	}
 }
 
-void	free_matrix(matrix *out)
+void	free_matrix(t_matrix *out)
 {
 	int	i;
 
@@ -109,87 +109,3 @@ void	free_arr(int **arr, int rows)
 	}
 	free(arr);
 }
-
-static int	get_cell_value(char c, matrix *m)
-{
-	if (c == m->space)
-		return (1);
-	if (c == m->obstacle)
-		return (0);
-	return (-1);
-}
-
-int	**parse_matrix(matrix *m)
-{
-	int	**int_m;
-	int	i;
-	int	j;
-
-	if (!m || !m->m || m->rows <= 0)
-		return (NULL);
-	int_m = malloc(sizeof(int *) * m->rows);
-	if (!int_m)
-		return (NULL);
-	i = -1;
-	while (++i < m->rows)
-	{
-		if (ft_strlen(m->m[i]) != m->col)
-			return (NULL);
-		int_m[i] = (int *)malloc(sizeof(int) * m->col);
-		if (!int_m[i])
-			return (NULL);
-		j = -1;
-		while (++j < m->col)
-		{
-			int_m[i][j] = get_cell_value(m->m[i][j], m);
-			if (int_m[i][j] == -1)
-				return (NULL);
-		}
-	}
-	return (int_m);
-}
-
-/*main in different file
-int	main(int argc, char **argv)
-{
-	int			fd;
-	int			i;
-	matrix		*m_def;
-	int			**int_m;
-	t_square	res;
-
-	i = 1;
-	if (argc < 2)
-		return (0);
-	while (i < argc)
-	{
-		fd = open(argv[i], O_RDONLY);
-		if (fd < 0)
-		{
-			write(2, "map error\n", 10);
-			i++;
-			continue ;
-		}
-		m_def = read_matrix(fd);
-		if (m_def && validate_matrix(m_def))
-		{
-			int_m = parse_matrix(m_def);
-			if (int_m)
-			{
-				res = find_bsq(int_m, m_def->rows, m_def->col);
-				if (res.size > 0)
-					fill_matrix(m_def, res);
-				print_matrix(m_def);
-				free_arr(int_m, m_def->rows);
-				free_matrix(m_def);
-			}
-			else
-				write(2, "map error\n", 10);
-		}
-		else
-			write(2, "map error\n", 10);
-		close(fd);
-		i++;
-	}
-	return (0);
-}*/

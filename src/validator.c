@@ -26,7 +26,7 @@ static int	line_chars_valid(const char *str, char space, char obstacle)
 	return (1);
 }
 
-int	validate_matrix(matrix *m)
+int	validate_matrix(t_matrix *m)
 {
 	int	i;
 	int	col;

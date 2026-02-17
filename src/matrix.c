@@ -9,56 +9,79 @@
 /*   Updated: 2026-02-17 18:03:25 by vsack            ###   ########42vienna  */
 /*                                                                            */
 /* ************************************************************************** */
-
 #include "lib.h"
 
 char	*read_line(int fd)
 {
-	int		i;
+	char	*buf;
 	char	c;
-	char	*buffer;
+	int		i;
 
-	buffer = malloc(1024);
-	i = 0;
-	if (!buffer)
+	buf = malloc(sizeof(char) * 16384);
+	if (!buf)
 		return (NULL);
-	while (read(fd, &c, 1) > 0 && c != '\n')
-		buffer[i++] = c;
-	buffer[i] = '\0';
-	return (buffer);
+	i = 0;
+	while (read(fd, &c, 1) > 0 && c != '\n' && i < 16383)
+		buf[i++] = c;
+	buf[i] = '\0';
+	if (i == 0 && c != '\n')
+	{
+		free(buf);
+		return (NULL);
+	}
+	return (buf);
 }
 
-matrix	*read_matrix(int fd)
+t_matrix	*read_matrix(int fd)
 {
-	char	*header;
-	matrix	*st;
-	int		i;
+	t_matrix	*st;
+	char		*header;
+	int			i;
 
 	header = read_line(fd);
 	if (!header)
 		return (NULL);
-	st = malloc(sizeof(matrix));
-	if (!st)
+	st = malloc(sizeof(t_matrix));
+	if (!st || !parse_header(header, st))
 	{
 		free(header);
-		return (NULL);
-	}
-	parse_header(header, st);
-	st->m = malloc(sizeof(char *) * (st->rows + 1));
-	free(header);
-	if (!st->m)
-	{
 		free(st);
 		return (NULL);
 	}
-	i = 0;
-	while (i < st->rows)
-	{
+	free(header);
+	st->m = malloc(sizeof(char *) * (st->rows + 1));
+	if (!st->m)
+		return (NULL);
+	i = -1;
+	while (++i < st->rows)
 		st->m[i] = read_line(fd);
-		if (i == 0 && st->m[i])
-			st->col = ft_strlen(st->m[i]);
-		i++;
-	}
 	st->m[i] = NULL;
 	return (st);
+}
+
+int	**parse_matrix(t_matrix *m)
+{
+	int	**res;
+	int	i;
+	int	j;
+
+	res = malloc(sizeof(int *) * m->rows);
+	if (!res)
+		return (NULL);
+	i = -1;
+	while (++i < m->rows)
+	{
+		res[i] = malloc(sizeof(int) * m->col);
+		if (!res[i])
+			return (free_arr(res, i), NULL);
+		j = -1;
+		while (++j < m->col)
+		{
+			if (m->m[i][j] == m->obstacle)
+				res[i][j] = 0;
+			else
+				res[i][j] = 1;
+		}
+	}
+	return (res);
 }

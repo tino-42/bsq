@@ -9,7 +9,6 @@
 /*   Updated: 2026-02-17 17:53:12 by vsack            ###   ########42vienna  */
 /*                                                                            */
 /* ************************************************************************** */
-
 #include "lib.h"
 
 static void	print_map_error(void)
@@ -19,7 +18,7 @@ static void	print_map_error(void)
 
 static void	process_fd(int fd)
 {
-	matrix		*m_def;
+	t_matrix	*m_def;
 	int			**int_m;
 	t_square	res;
 
@@ -50,6 +49,7 @@ int	main(int argc, char **argv)
 	int	fd;
 	int	i;
 
+	// TODO: some BSQ test may fail.
 	if (argc == 1)
 	{
 		process_fd(0);

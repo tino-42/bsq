@@ -46,7 +46,7 @@ static int	parse_pos_int_pre(const char *s, int len, int *out)
 	return (1);
 }
 
-static int	extractor(const char *hdr, int len, matrix *out)
+static int	extractor(const char *hdr, int len, t_matrix *out)
 {
 	out->space = hdr[len - 3];
 	out->obstacle = hdr[len - 2];
@@ -60,7 +60,7 @@ static int	extractor(const char *hdr, int len, matrix *out)
 	return (1);
 }
 
-int	parse_header(const char *hdr, matrix *out)
+int	parse_header(const char *hdr, t_matrix *out)
 {
 	int	len;
 	int	rows;

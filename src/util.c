@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_tail.c                                          :+:      :+:    :+:   */
+/*   util.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: olnovyts <olnovyts@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -9,13 +9,6 @@
 /*   Updated: 2026/02/16 14:22:31 by olnovyts         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-#include <errno.h>
-#include <fcntl.h>
-#include <libgen.h>
-#include <stdlib.h>
-#include <string.h>
-#include <unistd.h>
-
 int	ft_isspace(char s)
 {
 	if (s == ' ' || s == '\f' || s == '\n' || s == '\r' || s == '\t'
