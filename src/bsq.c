@@ -11,42 +11,41 @@
 /* ************************************************************************** */
 #include "lib.h"
 
+int	get_min_neighbor(int **m, int i, int j)
+{
+	int	min;
+
+	min = m[i - 1][j];
+	if (m[i][j - 1] < min)
+		min = m[i][j - 1];
+	if (m[i - 1][j - 1] < min)
+		min = m[i - 1][j - 1];
+	return (min);
+}
+
 t_square	find_bsq(int **m, int rows, int cols)
 {
 	t_square	max;
 	int			i;
 	int			j;
-	int			min;
 
 	max = (t_square){0, 0, 0};
-	i = 0;
-	while (i < rows)
+	i = -1;
+	while (++i < rows)
 	{
-		j = 0;
-		while (j < cols)
+		j = -1;
+		while (++j < cols)
 		{
 			if (i > 0 && j > 0 && m[i][j] > 0)
-			{
-				min = m[i - 1][j];
-				if (m[i][j - 1] < min)
-					min = m[i][j - 1];
-				if (m[i - 1][j - 1] < min)
-					min = m[i - 1][j - 1];
-				m[i][j] = min + 1;
-			}
-			if (m[i][j] > max.size) // update largest square
-			{
-				max.size = m[i][j];
-				max.y = i;
-				max.x = j;
-			}
-			j++;
+				m[i][j] = get_min_neighbor(m, i, j) + 1;
+			if (m[i][j] > max.size)
+				max = (t_square){m[i][j], i, j};
 		}
-		i++;
 	}
 	return (max);
 }
 
+// fill from the bottom right corner (backwards)
 void	fill_matrix(t_matrix *m_def, t_square res)
 {
 	int	i;
@@ -58,7 +57,7 @@ void	fill_matrix(t_matrix *m_def, t_square res)
 		j = 0;
 		while (j < res.size)
 		{
-			m_def->m[res.y - i][res.x - j] = m_def->fill; // fill from the bottom right corner (backwards)
+			m_def->m[res.y - i][res.x - j] = m_def->fill;
 			j++;
 		}
 		i++;
@@ -95,17 +94,4 @@ void	free_matrix(t_matrix *out)
 		free(out->m);
 	}
 	free(out);
-}
-
-void	free_arr(int **arr, int rows)
-{
-	int	i;
-
-	i = 0;
-	while (i < rows)
-	{
-		free(arr[i]);
-		i++;
-	}
-	free(arr);
 }

@@ -54,3 +54,16 @@ int	validate_matrix(t_matrix *m)
 	m->col = col;
 	return (1);
 }
+
+void	free_arr(int **arr, int rows)
+{
+	int	i;
+
+	i = 0;
+	while (i < rows)
+	{
+		free(arr[i]);
+		i++;
+	}
+	free(arr);
+}

@@ -44,12 +44,12 @@ static void	process_fd(int fd)
 	free_matrix(m_def);
 }
 
+// TODO: some BSQ test may fail.
 int	main(int argc, char **argv)
 {
 	int	fd;
 	int	i;
 
-	// TODO: some BSQ test may fail.
 	if (argc == 1)
 	{
 		process_fd(0);
