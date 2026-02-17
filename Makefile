@@ -1,7 +1,7 @@
 CC = cc
-CFLAGS = -Wall -Werror -Wextra
+CFLAGS = -Wall -Werror -Wextra -g
 SRC = src/
-SRCS = bsq.c util.c matrix.c
+SRCS = bsq.c util.c matrix.c parser.c validator.c
 OBJECTS = $(SRCS:.c=.o)
 NAME = bsq
 

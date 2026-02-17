@@ -14,10 +14,18 @@ typedef struct matrix_t
 	char	fill;
 }			matrix;
 
+typedef struct s_square
+{
+	int		size;
+	int		y;
+	int		x;
+}			t_square;
+
 char		*read_line(int fd);
 matrix		*read_matrix(int fd);
 int			**parse_matrix(matrix *m);
 // helpers
 int			ft_strlen(const char *s);
 int			ft_atoi(char *str);
+int			validate_matrix(matrix *m);
 #endif
