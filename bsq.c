@@ -18,7 +18,7 @@ t_square	find_bsq(int **m, int rows, int cols)
 	int			j;
 	int			min;
 
-	max = {0, 0, 0};
+	max = (t_square){0, 0, 0};
 	i = 0;
 	while (i < rows)
 	{
@@ -131,7 +131,8 @@ int	main(int argc, char **argv)
 			continue ;
 		}
 		m_def = read_matrix(fd);
-		if (m_def && validate_matrix(m_def))
+		// print_matrix(m_def);
+		if (m_def/* && validate_matrix(m_def)*/)
 		{
 			int_m = parse_matrix(m_def);
 			if (int_m)

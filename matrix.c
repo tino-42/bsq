@@ -17,29 +17,37 @@ char	*read_line(int fd)
 	return (buffer);
 }
 
-matrix	*read_matrix(int fd)
+matrix  *read_matrix(int fd)
 {
-	char	*header;
-	int		row_count;
-	int		i;
-	matrix	*st;
+	char    *header;
+	matrix  *st;
+	int     i;
 
 	header = read_line(fd);
 	if (!header)
 		return (NULL);
-	row_count = ft_atoi(header);
+
 	st = malloc(sizeof(matrix));
-	st->m = malloc(sizeof(char *) * (row_count + 1));
-	free(header);
-	if (!st->m)
+	if (!st) {
+		free(header);
 		return (NULL);
+	}
+	parse_header(header, st);
+	st->m = malloc(sizeof(char *) * (st->rows + 1));
+	free(header);
+	if (!st->m) {
+		free(st);
+		return (NULL);
+	}
+
 	i = 0;
-	while (i < row_count)
+	while (i < st->rows)
 	{
 		st->m[i] = read_line(fd);
+		if (i == 0 && st->m[i])
+			st->col = ft_strlen(st->m[i]);
 		i++;
 	}
-	st->rows = row_count;
 	st->m[i] = NULL;
 	return (st);
 }

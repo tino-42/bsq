@@ -28,4 +28,5 @@ int			**parse_matrix(matrix *m);
 int			ft_strlen(const char *s);
 int			ft_atoi(char *str);
 int			validate_matrix(matrix *m);
+int	parse_header(const char *hdr, matrix *out);
 #endif
