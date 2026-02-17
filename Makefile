@@ -1,17 +1,23 @@
-CC = cc
-CFLAGS = -g
-SRC = src/
-SRCS = bsq.c main.c util.c matrix.c parser.c validator.c
-OBJECTS = $(SRCS:.c=.o)
-NAME = bsq
+NAME    = bsq
+CC      = cc
+CFLAGS  = -Wall -Wextra -Werror -I include
 
-all:
-	$(CC) $(CFLAGS) -o $(NAME) $(SRCS)
+SRC_DIR = src/
+FILES   = bsq.c main.c util.c matrix.c parser.c validator.c
+SRCS    = $(addprefix $(SRC_DIR), $(FILES))
+OBJS    = $(SRCS:.c=.o)
+
+all: $(NAME)
+
+$(NAME): $(OBJS)
+	$(CC) $(CFLAGS) -o $(NAME) $(OBJS)
 
 clean:
-	rm -f $(OBJECTS)
+	rm -f $(OBJS)
 
 fclean: clean
 	rm -f $(NAME)
 
 re: fclean all
+
+.PHONY: all clean fclean re
