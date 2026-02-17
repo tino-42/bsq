@@ -26,40 +26,6 @@ static int	line_chars_valid(const char *str, char space, char obstacle)
 	return (1);
 }
 
-static int	is_printable(char c)
-{
-	return (c >= 32 && c <= 126);
-}
-
-static int	is_digit(char c)
-{
-	return (c >= '0' && c <= '9');
-}
-
-static int	parse_pos_int_pre(const char *s, int len, int *out)
-{
-	long	n;
-	int		i;
-
-	if (len <= 0)
-		return (0);
-	n = 0;
-	i = 0;
-	while (i < len)
-	{
-		if (!is_digit(s[i]))
-			return (0);
-		n = n * 10 + (s[i] - '0');
-		if (n > 2147483647)
-			return (0);
-		i++;
-	}
-	if (n <= 0)
-		return (0);
-	*out = (int)n;
-	return (1);
-}
-
 int	validate_matrix(matrix *m)
 {
 	int	i;
