@@ -131,8 +131,7 @@ int	main(int argc, char **argv)
 			continue ;
 		}
 		m_def = read_matrix(fd);
-		// print_matrix(m_def);
-		if (m_def/* && validate_matrix(m_def)*/)
+		if (m_def && validate_matrix(m_def))
 		{
 			int_m = parse_matrix(m_def);
 			if (int_m)
@@ -147,6 +146,8 @@ int	main(int argc, char **argv)
 			else
 				write(2, "map error\n", 10);
 		}
+		else
+			write(2, "map error\n", 10);
 		close(fd);
 		i++;
 	}
