@@ -6,14 +6,14 @@
 /*   By: vsack <vsack@student.42vienna.com>         #+#  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026-02-17 17:53:12 by vsack             #+#    #+#             */
-/*   Updated: 2026-02-17 17:53:12 by vsack            ###   ########42vienna  */
+/*   Updated: 2026/02/18 12:45:07 by olnovyts         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "lib.h"
 
 static void	print_map_error(void)
 {
-	write(1, "map error\n", 10);
+	write(2, "map error\n", 10);
 }
 
 static void	process_fd(int fd)

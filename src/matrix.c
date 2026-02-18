@@ -6,7 +6,7 @@
 /*   By: vsack <vsack@student.42vienna.com>         #+#  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026-02-17 18:03:25 by vsack             #+#    #+#             */
-/*   Updated: 2026-02-17 18:03:25 by vsack            ###   ########42vienna  */
+/*   Updated: 2026/02/18 12:54:01 by olnovyts         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "lib.h"
@@ -16,15 +16,21 @@ char	*read_line(int fd)
 	char	*buf;
 	char	c;
 	int		i;
+	int		res;
 
 	buf = malloc(sizeof(char) * 16384);
 	if (!buf)
 		return (NULL);
 	i = 0;
-	while (read(fd, &c, 1) > 0 && c != '\n' && i < 16383)
+	c = 0;
+	res = read(fd, &c, 1);
+	while (res > 0 && c != '\n' && i < 16383)
+	{
 		buf[i++] = c;
+		res = read(fd, &c, 1);
+	}
 	buf[i] = '\0';
-	if (i == 0 && c != '\n')
+	if (res < 0 || (res == 0 && i == 0) || (res == 0 && c != '\n'))
 	{
 		free(buf);
 		return (NULL);
