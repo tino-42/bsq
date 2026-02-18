@@ -11,6 +11,18 @@
 /* ************************************************************************** */
 #include "lib.h"
 
+void	init_rows(char **m, int rows)
+{
+	int	i;
+
+	i = 0;
+	while (i <= rows)
+	{
+		m[i] = NULL;
+		i++;
+	}
+}
+
 char	*read_line(int fd)
 {
 	char	*buf;
@@ -43,25 +55,31 @@ t_matrix	*read_matrix(int fd)
 	t_matrix	*st;
 	char		*header;
 	int			i;
+	char		*extra;
 
 	header = read_line(fd);
 	if (!header)
 		return (NULL);
 	st = malloc(sizeof(t_matrix));
 	if (!st || !parse_header(header, st))
-	{
-		free(header);
-		free(st);
-		return (NULL);
-	}
+		return (free(header), free(st), NULL);
 	free(header);
 	st->m = malloc(sizeof(char *) * (st->rows + 1));
 	if (!st->m)
-		return (NULL);
-	i = -1;
-	while (++i < st->rows)
+		return (free(st), NULL);
+	init_rows(st->m, st->rows);
+	i = 0;
+	while (i < st->rows)
+	{
 		st->m[i] = read_line(fd);
+		if (!st->m[i])
+			return (free_matrix(st), NULL);
+		i++;
+	}
 	st->m[i] = NULL;
+	extra = read_line(fd);
+	if (extra)
+		return (free(extra), free_matrix(st), NULL);
 	return (st);
 }
 
