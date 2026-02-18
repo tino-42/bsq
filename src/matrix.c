@@ -3,12 +3,13 @@
 /*                                                        :::      ::::::::   */
 /*   matrix.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vsack <vsack@student.42vienna.com>         #+#  +:+       +#+        */
+/*   By: vsack <vsack@student.42vienna.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026-02-17 18:03:25 by vsack             #+#    #+#             */
-/*   Updated: 2026/02/18 12:54:01 by olnovyts         ###   ########.fr       */
+/*   Created: 2026/02/17 18:03:25 by vsack             #+#    #+#             */
+/*   Updated: 2026/02/18 14:07:18 by vsack            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 #include "lib.h"
 
 void	init_rows(char **m, int rows)
@@ -50,12 +51,10 @@ char	*read_line(int fd)
 	return (buf);
 }
 
-t_matrix	*read_matrix(int fd)
+t_matrix	*alloc_matrix(int fd)
 {
 	t_matrix	*st;
 	char		*header;
-	int			i;
-	char		*extra;
 
 	header = read_line(fd);
 	if (!header)
@@ -67,6 +66,18 @@ t_matrix	*read_matrix(int fd)
 	st->m = malloc(sizeof(char *) * (st->rows + 1));
 	if (!st->m)
 		return (free(st), NULL);
+	return (st);
+}
+
+t_matrix	*read_matrix(int fd)
+{
+	t_matrix	*st;
+	int			i;
+	char		*extra;
+
+	st = alloc_matrix(fd);
+	if (!st)
+		return (NULL);
 	init_rows(st->m, st->rows);
 	i = 0;
 	while (i < st->rows)
