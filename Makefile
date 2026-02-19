@@ -2,7 +2,7 @@ NAME    = bsq
 CC      = cc
 CFLAGS  = -Wall -Wextra -Werror -I include
 
-SRC_DIR = src/
+SRC_DIR = ./
 FILES   = bsq.c main.c util.c matrix.c parser.c validator.c
 SRCS    = $(addprefix $(SRC_DIR), $(FILES))
 OBJS    = $(SRCS:.c=.o)

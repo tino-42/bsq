@@ -6,14 +6,14 @@
 /*   By: vsack <vsack@student.42vienna.com>         #+#  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026-02-17 17:53:12 by vsack             #+#    #+#             */
-/*   Updated: 2026/02/18 12:45:07 by olnovyts         ###   ########.fr       */
+/*   Updated: 2026/02/18 19:52:52 by olnovyts         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "lib.h"
 
 static void	print_map_error(void)
 {
-	write(2, "map error\n", 10);
+	write(1, "map error\n", 10);
 }
 
 static void	process_fd(int fd)
@@ -44,7 +44,6 @@ static void	process_fd(int fd)
 	free_matrix(m_def);
 }
 
-// TODO: some BSQ test may fail.
 int	main(int argc, char **argv)
 {
 	int	fd;
